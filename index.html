@@ -1,9 +1,43 @@
-<!DOCTYPE html>
-<html>
+<html lang="en" >
 <head>
-	<title>robfitzgerald</title>
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+  <title>robfitzgerald</title>
 </head>
-<body>
-  <h1>Initial</h1>
+<body ng-app="githubIo" ng-cloak>
+
+	<md-toolbar>
+    <div class="md-toolbar-tools">
+      <span>My App's Title</span>
+      <span flex></span>
+      <md-button>
+        (future menu)
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-content>
+    Hello!
+    <md-list>
+		  <md-list-item class="md-2-line" ng-repeat="item in todos">
+		    <div class="md-list-item-text">
+		      <h3>{{item.title}}</h3>
+		      <p>{{item.description}}</p>
+		    </div>
+		  </md-list-item>
+		</md-list>
+  </md-content>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+
+  <script type="text/javascript">    
+    /**
+     * You must include the dependency on 'ngMaterial' 
+     */
+    angular.module('githubIo', ['ngMaterial']);
+  </script>
+  
 </body>
 </html>
