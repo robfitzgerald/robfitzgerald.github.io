@@ -16,8 +16,8 @@
   </md-toolbar>
   <md-content>
     Hello!
-    <md-list>
-		  <md-list-item class="md-2-line" ng-repeat="item in todos">
+    <md-list ng-controller="testCtrl">
+		  <md-list-item class="md-2-line" ng-repeat="item in testCtrl.repeatable">
 		    <div class="md-list-item-text">
 		      <h3>{{item.title}}</h3>
 		      <p>{{item.description}}</p>
@@ -33,10 +33,20 @@
   <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
 
   <script type="text/javascript">    
-    /**
-     * You must include the dependency on 'ngMaterial' 
-     */
     angular.module('githubIo', ['ngMaterial']);
+    angular.module('githubIo')
+    	.controller('testCtrl', ['$scope', function($scope) {
+    		$scope.repeatable = [
+    			{
+    				"title": "one",
+    				"description": "one's descroption"
+    			},
+    			{
+    				"title": "two",
+    				"description": "two's fortuitous descrooption"
+    			}
+    		];
+    	}]);
   </script>
   
 </body>
