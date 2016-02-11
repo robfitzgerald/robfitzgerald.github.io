@@ -17,10 +17,13 @@
   <md-content>
     Hello!
     <md-list ng-controller="testCtrl as ctrl">
-		  <md-list-item class="md-2-line" ng-repeat="item in ctrl.repeatable">
+		  <md-list-item class="md-2-line" ng-repeat="item in ctrl.subjects">
 		    <div class="md-list-item-text">
 		      <h3>{{item.title}}</h3>
 		      <p>{{item.description}}</p>
+		      <a href="item.url">Github Repository</p>
+		      <a href="item.see">{{item.see}}</a>
+		      <p ng-repeat="tag in item.tags" flex>{{tag}}</p>
 		    </div>
 		  </md-list-item>
 		</md-list>
@@ -37,16 +40,66 @@
     angular.module('githubIo')
     	.controller('testCtrl', function() {
     		var vm = this;
-    		vm.repeatable = [
-    			{
-    				"title": "one",
-    				"description": "one's descroption"
-    			},
-    			{
-    				"title": "two",
-    				"description": "two's fortuitous descrooption"
-    			}
-    		];
+    		vm.subjects = [
+			    {
+						title: "Chess AI",
+						description: "c++ command line tool exploring R.Reti chess endgame study",
+						url: "https://en.wikipedia.org/wiki/R%C3%A9ti_endgame_study",
+						see: "https://chessprogramming.wikispaces.com/",
+						tags: [
+							"c++",
+							"ai",
+							"OOP"
+						]
+					},
+					{
+						title: "Blocks World Planning",
+						description: "Angular Service employing STRIPS planning system",
+						url: "https://github.com/robfitzgerald/csci5582_project2",
+						see: "https://en.wikipedia.org/wiki/STRIPS",
+						tags: [
+							"javascript"
+							"expert systems",
+							"planning",
+							"MEAN"
+						]
+					},
+					{
+						title: "Graph Coloring and Thickness",
+						description: "c++ command line tool exploring the chromatic number of the form C sub n[K sub r]",
+						url: "https://github.com/robfitzgerald/csci5451-graph-thickness-and-coloring/tree/master/implementation_02",
+						see: "https://en.wikipedia.org/wiki/Thickness_(graph_theory)",
+						tags: [
+							"c++",
+							"graph theory",
+							"graph coloring",
+							"graph thickness"
+						]
+					},
+					{
+						title: "Page Replacement Simulation",
+						description: "c++ command line tool simulating CPU page replacement algorithms",
+						url: "https://github.com/robfitzgerald/csci3453-lab3-pagereplacement",
+						see: "https://en.wikipedia.org/wiki/Page_replacement_algorithm",
+						tags: [
+							"c++",
+							"operating systems",
+							"OOP"
+						]
+					},
+					{
+						title: "Chesspiece Trajectories",
+						description: "c++ command line tool generating all shortest paths for chess pieces using linguistic geometry",
+						url: "https://github.com/robfitzgerald/CSCI5582-project-03",
+						see: "http://www.stilman-strategies.com/bstilman/research/index.html",
+						tags: [
+							"c++",
+							"ai",
+							"OOP",
+							"LG"
+						]
+					}
+    		]
     	});
   </script>
   
