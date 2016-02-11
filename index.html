@@ -16,8 +16,8 @@
   </md-toolbar>
   <md-content>
     Hello!
-    <md-list ng-controller="testCtrl">
-		  <md-list-item class="md-2-line" ng-repeat="item in testCtrl.repeatable">
+    <md-list ng-controller="testCtrl as ctrl">
+		  <md-list-item class="md-2-line" ng-repeat="item in ctrl.repeatable">
 		    <div class="md-list-item-text">
 		      <h3>{{item.title}}</h3>
 		      <p>{{item.description}}</p>
@@ -35,8 +35,9 @@
   <script type="text/javascript">    
     angular.module('githubIo', ['ngMaterial']);
     angular.module('githubIo')
-    	.controller('testCtrl', ['$scope', function($scope) {
-    		$scope.repeatable = [
+    	.controller('testCtrl', function() {
+    		var vm = this;
+    		vm.repeatable = [
     			{
     				"title": "one",
     				"description": "one's descroption"
@@ -46,7 +47,7 @@
     				"description": "two's fortuitous descrooption"
     			}
     		];
-    	}]);
+    	});
   </script>
   
 </body>
