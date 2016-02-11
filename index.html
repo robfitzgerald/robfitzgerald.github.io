@@ -22,9 +22,9 @@
 		      <p>{{item.description}}</p>
 		      <a ng-href="{{item.url}}">Github Repository</p>
 		      <a ng-href="{{item.see}}">{{item.see}}</a>
-		      <md-list>
-		      	<p class="md-caption" ng-repeat="tag in item.tags" flex>{{tag}}</p>
-		      </md-list>
+		      <div layout="row">
+		      	<div class="md-caption" ng-repeat="tag in item.tags" flex>{{tag}}</div>
+		      </div>
 		    </div>
 		  </md-list-item>
 		</md-list>
