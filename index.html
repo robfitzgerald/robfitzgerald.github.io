@@ -21,8 +21,8 @@
 		    <div class="md-list-item-text">
 		      <h3>{{item.title}}</h3>
 		      <p>{{item.description}}</p>
-		      <a ng-href="item.url">Github Repository</p>
-		      <a ng-href="item.see">{{item.see}}</a>
+		      <a ng-href="{{item.url}}">Github Repository</p>
+		      <a ng-href="{{item.see}}">{{item.see}}</a>
 		      <p ng-repeat="tag in item.tags" flex>{{tag}}</p>
 		    </div>
 		  </md-list-item>
