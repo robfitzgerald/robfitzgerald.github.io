@@ -1,30 +1,36 @@
 <html lang="en" >
 <head>
   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <title>robfitzgerald</title>
 </head>
-<body ng-app="githubIo" ng-cloak>
+<body ng-app="githubIo" ng-cloak ng-controller="testCtrl as ctrl">
 
 	<md-toolbar>
     <div class="md-toolbar-tools">
-      <span>My App's Title</span>
+      <span>Student CV</span>
       <span flex></span>
       <md-button>
-        (future menu)
+      	<i class="material-icons" ng-click="ctrl.showMenu()">menu</i>
       </md-button>
     </div>
   </md-toolbar>
   <md-content>
-    <md-list ng-controller="testCtrl as ctrl">
+    <md-list layout-sm="row">
 		  <md-list-item class="md-2-line" ng-repeat="item in ctrl.subjects">
 		    <div class="md-list-item-text">
 		      <h3>{{item.title}}</h3>
+		      <div layout="row">
+		      	<p flex="30">{{item.createdDate}}</p>
+		      	<p flex="20">{{item.language}}</p>
+		      </div>
 		      <p>{{item.description}}</p>
 		      <a ng-href="{{item.url}}">Github Repository</p>
 		      <a ng-href="{{item.see}}">{{item.see}}</a>
-		      <div layout="row">
-		      	<div class="md-caption" ng-repeat="tag in item.tags" flex>{{tag}}</div>
+		      <div layout="row" layout-align="start start">
+		      	<div class="md-caption" ng-repeat="tag in item.tags" flex="10">{{tag}}</div>
 		      </div>
+		      <p style="padding-bottom: 20px;"></p>
 		    </div>
 		  </md-list-item>
 		</md-list>
@@ -39,13 +45,17 @@
   <script type="text/javascript">    
     angular.module('githubIo', ['ngMaterial']);
     angular.module('githubIo')
-    	.controller('testCtrl', function() {
+    	.controller('testCtrl', ['githubApiService', '$mdToast', function(githubApiService, $mdToast) {
+	    	var	githubBase = "https://github.com/robfitzgerald";
     		var vm = this;
+    		vm.showMenu = function($event) {
+					$mdToast.show($mdToast.simple().textContent('menu'));
+    		};
     		vm.subjects = [
 			    {
 						title: "Chess AI",
-						description: "c++ command line tool exploring R.Reti chess endgame study",
-						url: "https://github.com/robfitzgerald/csci5582-chess-endgame",
+						description: "command line tool exploring R.Reti chess endgame study",
+						repo: "csci5582-chess-endgame",
 						see: "https://en.wikipedia.org/wiki/R%C3%A9ti_endgame_study",
 						tags: [
 							"c++",
@@ -56,7 +66,7 @@
 					{
 						title: "Blocks World Planning",
 						description: "Angular Service employing STRIPS planning system",
-						url: "https://github.com/robfitzgerald/csci5582_project2",
+						repo: "csci5582_project2",
 						see: "https://en.wikipedia.org/wiki/STRIPS",
 						tags: [
 							"javascript",
@@ -67,8 +77,8 @@
 					},
 					{
 						title: "Graph Coloring and Thickness",
-						description: "c++ command line tool exploring the chromatic number of the form C sub n[K sub r]",
-						url: "https://github.com/robfitzgerald/csci5451-graph-thickness-and-coloring/tree/master/implementation_02",
+						description: "command line tool exploring the chromatic number of the form C sub n[K sub r]",
+						repo: "csci5451-graph-thickness-and-coloring",
 						see: "https://en.wikipedia.org/wiki/Thickness_(graph_theory)",
 						tags: [
 							"c++",
@@ -79,8 +89,8 @@
 					},
 					{
 						title: "Page Replacement Simulation",
-						description: "c++ command line tool simulating CPU page replacement algorithms",
-						url: "https://github.com/robfitzgerald/csci3453-lab3-pagereplacement",
+						description: "command line tool simulating CPU page replacement algorithms",
+						repo: "csci3453-lab3-pagereplacement",
 						see: "https://en.wikipedia.org/wiki/Page_replacement_algorithm",
 						tags: [
 							"c++",
@@ -90,8 +100,8 @@
 					},
 					{
 						title: "Chesspiece Trajectories",
-						description: "c++ command line tool generating all shortest paths for chess pieces using linguistic geometry",
-						url: "https://github.com/robfitzgerald/CSCI5582-project-03",
+						description: "command line tool generating all shortest paths for chess pieces using linguistic geometry",
+						repo: "CSCI5582-project-03",
 						see: "http://www.stilman-strategies.com/bstilman/research/index.html",
 						tags: [
 							"c++",
@@ -99,9 +109,40 @@
 							"OOP",
 							"LG"
 						]
+					},
+					{
+						title: "This Website",
+						description: "github.io site built on Angular, Angular Material, and the Github API",
+						repo: "robfitzgerald.github.io",
+						see: "https://pages.github.com",
+						tags: [
+							"javascript",
+							"API",
+							"git"
+						]
 					}
     		]
-    	});
+    		vm.subjects.forEach(function(item) {
+    			item.url = githubBase + '/' + item.repo;
+    			githubApiService.repoDetails(item.repo)
+    				.success(function(response) {
+    					item.createdDate = response.created_at;
+    					item.language = response.language;
+    					console.log(response);
+    				})
+    		});
+    	}])
+    	.factory('githubApiService', ['$http', function($http) {
+    		var githubApiBase = "https://api.github.com/repos/robfitzgerald";
+    		return {
+    			repoDetails: repoDetails
+    		};
+
+    		function repoDetails (repoName) {
+    			return $http.get(githubApiBase + '/' + repoName);
+    		}
+
+    	}])
   </script>
   
 </body>
