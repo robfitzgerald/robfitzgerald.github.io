@@ -15,7 +15,6 @@
     </div>
   </md-toolbar>
   <md-content>
-    Hello!
     <md-list ng-controller="testCtrl as ctrl">
 		  <md-list-item class="md-2-line" ng-repeat="item in ctrl.subjects">
 		    <div class="md-list-item-text">
@@ -23,7 +22,9 @@
 		      <p>{{item.description}}</p>
 		      <a ng-href="{{item.url}}">Github Repository</p>
 		      <a ng-href="{{item.see}}">{{item.see}}</a>
-		      <p ng-repeat="tag in item.tags" flex>{{tag}}</p>
+		      <div ng-layout="row">
+		      	<p class="md-caption" ng-repeat="tag in item.tags" flex>{{tag}}</p>
+		      </div>
 		    </div>
 		  </md-list-item>
 		</md-list>
@@ -44,8 +45,8 @@
 			    {
 						title: "Chess AI",
 						description: "c++ command line tool exploring R.Reti chess endgame study",
-						url: "https://en.wikipedia.org/wiki/R%C3%A9ti_endgame_study",
-						see: "https://chessprogramming.wikispaces.com/",
+						url: "https://github.com/robfitzgerald/csci5582-chess-endgame",
+						see: "https://en.wikipedia.org/wiki/R%C3%A9ti_endgame_study",
 						tags: [
 							"c++",
 							"ai",
