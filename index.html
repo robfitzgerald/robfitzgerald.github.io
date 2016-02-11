@@ -21,7 +21,7 @@
 		    <div class="md-list-item-text">
 		      <h3>{{item.title}}</h3>
 		      <div layout="row">
-		      	<p flex="30">{{item.createdDate}}</p>
+		      	<p flex="20">{{item.createdDate | date:"shortDate"}} - {{item.modifiedDate | date:"shortDate"}}</p>
 		      	<p flex="20">{{item.language}}</p>
 		      </div>
 		      <p>{{item.description}}</p>
@@ -127,6 +127,7 @@
     			githubApiService.repoDetails(item.repo)
     				.success(function(response) {
     					item.createdDate = response.created_at;
+    					item.modifiedDate = response.updated_at;
     					item.language = response.language;
     					console.log(response);
     				})
