@@ -15,8 +15,9 @@
       </md-button>
     </div>
   </md-toolbar>
-  <md-content>
-    <md-list layout-sm="row">
+  <md-content layout="row">
+    <md-list flex="66">
+    	<h2 class="md-headline">Projects</h2>
 		  <md-list-item class="md-2-line" ng-repeat="item in ctrl.subjects">
 		    <div class="md-list-item-text">
 		      <h3>{{item.title}}</h3>
@@ -34,6 +35,10 @@
 		    </div>
 		  </md-list-item>
 		</md-list>
+		<div flex="33">
+			<h2 class="md-headline">Repos by Length</h2>
+			<md-button md-no-ink class="md-primary" ng-href="{{repo.url}}" ng-repeat="repo in ctrl.bySize">{{repo.name}}</md-button>
+		</div>
   </md-content>
 
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
@@ -48,9 +53,7 @@
     	.controller('testCtrl', ['githubApiService', '$mdToast', function(githubApiService, $mdToast) {
 	    	var	githubBase = "https://github.com/robfitzgerald";
     		var vm = this;
-    		vm.showMenu = function($event) {
-					$mdToast.show($mdToast.simple().textContent('menu'));
-    		};
+    		vm.bySize = [];
     		vm.subjects = [
 			    {
 						title: "Chess AI",
@@ -122,6 +125,7 @@
 						]
 					}
     		]
+
     		vm.subjects.forEach(function(item) {
     			item.url = githubBase + '/' + item.repo;
     			githubApiService.repoDetails(item.repo)
@@ -132,15 +136,51 @@
     					console.log(response);
     				})
     		});
+    		
+    		getAllRepos(function(repos) {
+    			console.log('callback received:')
+    			console.log(repos)
+    			vm.bySize = repos;
+    		})
+	    	
+	    	vm.showMenu = function($event) {
+					$mdToast.show($mdToast.simple().textContent('menu'));
+    		};
+
+    		function getAllRepos(callback) {
+    			return githubApiService.allRepos()
+	    			.success(function(response) {
+		    					var output = [];
+		    					response.forEach(function(repo) {
+		    						var thisRepo = {
+		    							name: repo.name,
+		    							size: repo.size,
+		    							url: repo.html_url
+		    						}
+		    						output.push(thisRepo);
+		    					})
+		    					output.sort(function(a, b) {
+		    						return b.size - a.size;
+		    					})
+		    					callback(output);
+		    				})
+    		}
     	}])
     	.factory('githubApiService', ['$http', function($http) {
-    		var githubApiBase = "https://api.github.com/repos/robfitzgerald";
+    		var repoBase = "https://api.github.com/repos/robfitzgerald"
+    			, userBase = "https://api.github.com/users/robfitzgerald";
+
     		return {
-    			repoDetails: repoDetails
+    			repoDetails: repoDetails,
+    			allRepos: allRepos
     		};
 
     		function repoDetails (repoName) {
-    			return $http.get(githubApiBase + '/' + repoName);
+    			return $http.get(repoBase + '/' + repoName);
+    		}
+
+    		function allRepos () {
+    			return $http.get(userBase + '/repos');
     		}
 
     	}])
