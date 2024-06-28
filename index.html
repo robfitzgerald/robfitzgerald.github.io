@@ -1,218 +1,40 @@
-<html lang="en" >
+<html lang="en">
+
 <head>
-  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <title>robfitzgerald</title>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<title>robfitzgerald</title>
 </head>
-<body ng-app="githubIo" ng-cloak ng-controller="testCtrl as ctrl">
 
-	<md-toolbar>
-    <div class="md-toolbar-tools">
-      <span flex>Robert Fitzgerald || Student CV</span>
-      <span flex>
-      </span>
-      <span flex>
-      	<md-button ng-href="https://www.linkedin.com/in/rob-fitzgerald-57ba095" target="_blank">LinkedIn</md-button>
-			</span>
-      <span flex>
-        <md-button ng-href="http://cse.ucdenver.edu/~bdlab/" target="_blank">Big Data Lab</md-button>
-      </span>      
-    </div>
-  </md-toolbar>
-  <md-content layout="row">
-    <md-list flex="66">
-    	<h2 class="md-headline">Projects</h2>
-		  <md-list-item class="md-2-line" ng-repeat="item in ctrl.subjects">
-		    <div class="md-list-item-text">
-		      <h3>{{item.title}}</h3>
-		      <div layout="row">
-		      	<p flex="20">{{item.createdDate | date:"shortDate"}} - {{item.modifiedDate | date:"shortDate"}}</p>
-		      	<p flex="20">{{item.language}}</p>
-		      </div>
-		      <p>{{item.description}}</p>
-		      <a ng-href="{{item.url}}">Github Repository</p>
-		      <a ng-href="{{item.see}}">See {{item.see}}</a>
-		      <div layout="row" layout-align="start start">
-		      	<div class="md-caption" ng-repeat="tag in item.tags" flex="10">{{tag}}</div>
-		      </div>
-		      <p style="padding-bottom: 20px;"></p>
-		    </div>
-		  </md-list-item>
-		</md-list>
-<!-- 		<div flex="33">
-			<h2 class="md-headline">Repos by Length</h2>
-			<md-button md-no-ink class="md-primary" ng-href="{{repo.url}}" ng-repeat="repo in ctrl.bySize">{{repo.name}}</md-button>
-		</div> -->
-  </md-content>
+<body>
+	<a href="https://www.github.com/robfitzgerald">GitHub</a> |
+	<a href="https://www.linkedin.com/in/rob-fitzgerald-57ba095/">LinkedIn</a> |
 
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
-
-  <script type="text/javascript">    
-    angular.module('githubIo', ['ngMaterial']);
-    angular.module('githubIo')
-    	.controller('testCtrl', ['githubApiService', '$mdToast', function(githubApiService, $mdToast) {
-	    	var	githubBase = "https://github.com/robfitzgerald";
-    		var vm = this;
-    		vm.bySize = [];
-    		vm.subjects = [
-    			{
-    				title: "Go Graduate Graph Theory Presentation",
-    				description: "Interactive site used for a classroom presentation on the board game Go",
-    				repo: "go-graph-presentation",
-    				see: "http://45.55.225.76/csci5408",
-    				tags: [
-							"Angular.js",
-							"MathJax",
-							"JGOBoard.js",
-							"Graph Theory"
-    				]
-    			},
-    			{
-    				title: "Risk",
-    				description: "Monte Carlo Tree Search learning approach to the board game Risk, built as a web API",
-    				repo: "csci5800-risk",
-    				see: "https://github.com/robfitzgerald/csci5800-risk/wiki",
-    				tags: [
-    					"c++",
-    					"Node.js",
-    					"Neo4j",
-    					"Machine Learning"
-    				]
-    			},
-			    {
-						title: "Chess AI",
-						description: "command line tool exploring R.Reti chess endgame study",
-						repo: "csci5582-chess-endgame",
-						see: "https://en.wikipedia.org/wiki/R%C3%A9ti_endgame_study",
-						tags: [
-							"c++",
-							"ai",
-							"OOP"
-						]
-					},
-					{
-						title: "Blocks World Planning",
-						description: "Angular Service employing STRIPS planning system",
-						repo: "csci5582_project2",
-						see: "https://en.wikipedia.org/wiki/STRIPS",
-						tags: [
-							"javascript",
-							"expert systems",
-							"planning",
-							"MEAN"
-						]
-					},
-					{
-						title: "Graph Coloring and Thickness",
-						description: "command line tool exploring the chromatic number of the form C sub n[K sub r]",
-						repo: "csci5451-graph-thickness-and-coloring",
-						see: "https://en.wikipedia.org/wiki/Thickness_(graph_theory)",
-						tags: [
-							"c++",
-							"graph theory",
-							"graph coloring",
-							"graph thickness"
-						]
-					},
-					{
-						title: "Page Replacement Simulation",
-						description: "command line tool simulating CPU page replacement algorithms",
-						repo: "csci3453-lab3-pagereplacement",
-						see: "https://en.wikipedia.org/wiki/Page_replacement_algorithm",
-						tags: [
-							"c++",
-							"operating systems",
-							"OOP"
-						]
-					},
-					{
-						title: "Chesspiece Trajectories",
-						description: "command line tool generating all shortest paths for chess pieces using linguistic geometry",
-						repo: "CSCI5582-project-03",
-						see: "http://www.stilman-strategies.com/bstilman/research/index.html",
-						tags: [
-							"c++",
-							"ai",
-							"OOP",
-							"LG"
-						]
-					},
-					{
-						title: "robfitzgerald.github.io",
-						description: "github.io site built on Angular, Angular Material, and the Github API",
-						repo: "robfitzgerald.github.io",
-						see: "https://pages.github.com",
-						tags: [
-							"javascript",
-							"API",
-							"git"
-						]
-					}
-    		]
-
-    		vm.subjects.forEach(function(item) {
-    			item.url = githubBase + '/' + item.repo;
-    			githubApiService.repoDetails(item.repo)
-    				.success(function(response) {
-    					item.createdDate = response.created_at;
-    					item.modifiedDate = response.updated_at;
-    					item.language = response.language;
-    					console.log(response);
-    				})
-    		});
-    		
-    		getAllRepos(function(repos) {
-    			console.log('callback received:')
-    			console.log(repos)
-    			vm.bySize = repos;
-    		})
-	    	
-	    	vm.showMenu = function($event) {
-					$mdToast.show($mdToast.simple().textContent('menu'));
-    		};
-
-    		function getAllRepos(callback) {
-    			return githubApiService.allRepos()
-	    			.success(function(response) {
-		    					var output = [];
-		    					response.forEach(function(repo) {
-		    						var thisRepo = {
-		    							name: repo.name,
-		    							size: repo.size,
-		    							url: repo.html_url
-		    						}
-		    						output.push(thisRepo);
-		    					})
-		    					output.sort(function(a, b) {
-		    						return b.size - a.size;
-		    					})
-		    					callback(output);
-		    				})
-    		}
-    	}])
-    	.factory('githubApiService', ['$http', function($http) {
-    		var repoBase = "https://api.github.com/repos/robfitzgerald"
-    			, userBase = "https://api.github.com/users/robfitzgerald";
-
-    		return {
-    			repoDetails: repoDetails,
-    			allRepos: allRepos
-    		};
-
-    		function repoDetails (repoName) {
-    			return $http.get(repoBase + '/' + repoName);
-    		}
-
-    		function allRepos () {
-    			return $http.get(userBase + '/repos');
-    		}
-
-    	}])
-  </script>
-  
+	<h3>Roles</h3>
+	<ul>
+		<li>
+			Research Software Engineer III |
+			<a href="">National Renewable Energy Laboratory</a>
+			2018 - current
+		</li>
+		<li>
+			PhD Candidate, Computer Science and Information Systems |
+			<a href="">University of Colorado Denver</a>
+			2016 - current
+		</li>
+	</ul>
+	<h3>Projects</h3>
+	<ul>
+		<li>
+			<a href="https://github.com/NREL/routee-compass">RouteE Compass</a>
+			The energy-aware routing engine |
+			Rust, Python
+		</li>
+		<li>
+			<a href="https://github.com/NREL/hive">Hive</a>
+			A mobility services research platform |
+			Python
+		</li>
+	</ul>
 </body>
+
 </html>
